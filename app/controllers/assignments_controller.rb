@@ -29,6 +29,8 @@ class AssignmentsController < ApplicationController
   def new
     @assignment_form = AssignmentForm.new
     @assignment_form.assignment.instructor ||= current_user
+    params[:id] = @assignment_form.assignment.id
+    puts params[:id]
   end
 
   def create

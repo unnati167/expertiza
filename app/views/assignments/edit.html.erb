@@ -1,11 +1,12 @@
-<h1>Editing Assignment: <%=@assignment_form.assignment.name%></h1>
+<!--<h1>Editing Assignment: <%=@assignment_form.assignment.name%></h1>-->
+<h1>Create New <% if params[:private] == "1" %>Private <% else %>Public <% end %>Assignment</h1>
 
 
   <%= form_for @assignment_form.assignment, html: { id: 'assignment_form' } do %>
     <div class= "chart-table" id="tabs">
       <ul>
         <li><a href="#tabs-1" id="General">General</a></li>
-        <li><a href="#tabs-2" id="Topics">Topics</a></li>
+<!--        <li><a href="#tabs-2" id="Topics">Topics</a></li>-->
         <li><a href="#tabs-3" id="Rubrics">Rubrics</a></li>
         <li><a href="#tabs-4" id="ReviewStrategy">Review strategy</a></li>
         <li><a href="#tabs-5" id="DueDates">Due dates</a></li>
@@ -16,6 +17,7 @@
       <div id="tabs-1">
         <%= render 'assignments/edit/general' %>
       </div>
+<!--
       <div id="tabs-2">
         <h1>Topics for <%= @assignment_form.assignment.name %> assignment</h1>
             <input name="assignment_form[assignment][allow_suggestions]" type="hidden" value="false"/>
@@ -49,7 +51,7 @@
           <% else %>
               <%= render '/sign_up_sheet/add_signup_topics' %>
           <% end %>
-      </div>
+      </div>-->
       <div id="tabs-3">
         <%= render 'assignments/edit/rubrics' %>
       </div>

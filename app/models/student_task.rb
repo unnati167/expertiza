@@ -91,6 +91,10 @@ class StudentTask
       metareviews_given_in_current_stage?
   end
 
+  def late_tasks?
+    current_stage == 'Finished' && !started?
+  end
+
   def started?
     @started ||= incomplete? &&
       (content_submitted_in_current_stage? ||

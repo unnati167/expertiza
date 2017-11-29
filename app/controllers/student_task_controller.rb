@@ -14,7 +14,7 @@ class StudentTaskController < ApplicationController
     # #######Tasks and Notifications##################
     @tasknotstarted = @student_tasks.select(&:not_started?)
     @taskrevisions = @student_tasks.select(&:revision?)
-
+    @pastdueassignments =@student_tasks.select(&:late_tasks?)
     ######## Students Teamed With###################
     @students_teamed_with = StudentTask.teamed_students current_user
   end
@@ -63,3 +63,5 @@ class StudentTaskController < ApplicationController
   def your_work
   end
 end
+
+
