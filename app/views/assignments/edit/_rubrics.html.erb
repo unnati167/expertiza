@@ -4,8 +4,12 @@
         var row_id = 'questionnaire_table_' + questionnaire_type;
         var i = 0;
         var html;
-        html += '<tr id="' + row_id + '">' +
+	//if (@assignment_form.assignment.id)
+        //html += '<tr id="' + row_id + '">' +
         '<input name="assignment_form[assignment_questionnaire][][assignment_id]" type="hidden" value="' + <%= @assignment_form.assignment.id %> +'">';
+	//else
+	html += '<tr id="' + row_id + '">' +
+        '<input name="assignment_form[assignment_questionnaire][][assignment_id]" type="hidden" value="0">';
         //Rubric name
         if (round_no ==null) {
             html += '<td><label for="questionnaire_id">' + questionnaire.display_type + ':</label></td>';
