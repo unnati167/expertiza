@@ -34,17 +34,37 @@ class AssignmentsController < ApplicationController
   end
 
   def create
+
     @assignment_form = AssignmentForm.new(assignment_form_params)
+    if params[:button]
+        if @assignment_form.save
+          @assignment_form.create_assignment_node
+          existAssignment = Assignment.find_by_name(@assignment_form.assignment.name)
+          assignment_form_params[:assignment][:id] = existAssignment.id.to_s
+          quesparams = assignment_form_params
+          questArray = quesparams[:assignment_questionnaire]
+          dueArray = quesparams[:due_date]
+          questArray.each do |curquestionnaire|
+            curquestionnaire[:assignment_id] = existAssignment.id.to_s
+          end
+          dueArray.each do |curDue|
+            curDue[:parent_id] = existAssignment.id.to_s
+          end
+          quesparams[:assignment_questionnaire] = questArray
+          quesparams[:due_date] = dueArray
+          @assignment_form.update(quesparams,current_user)
+          aid = Assignment.find_by_name(@assignment_form.assignment.name).id
+              redirect_to edit_assignment_path aid
+          return
+          undo_link("Assignment \"#{@assignment_form.assignment.name}\" has been created successfully. ")
+        else
+          flash.now[:error] = "Failed to create assignment"
+          render 'new'
+        end
 
-    if @assignment_form.save
-      @assignment_form.create_assignment_node
-
-      redirect_to edit_assignment_path @assignment_form.assignment.id
-      undo_link("Assignment \"#{@assignment_form.assignment.name}\" has been created successfully. ")
-    else
-      render 'new'
     end
   end
+
 
   def edit
     # give an error message is instructor have not set the time zone.

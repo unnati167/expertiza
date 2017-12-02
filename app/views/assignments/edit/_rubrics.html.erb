@@ -4,10 +4,13 @@
         var row_id = 'questionnaire_table_' + questionnaire_type;
         var i = 0;
         var html;
+
         html += '<tr id="' + row_id + '">' +
         '<input name="assignment_form[assignment_questionnaire][][assignment_id]" type="hidden" value="';
-        html += <%= @assignment_form.assignment.id %> 
-	html += '">';
+        html += '<%= @assignment_form.assignment.id %>';
+	      html += '">';
+
+
         //Rubric name
         if (round_no ==null) {
             html += '<td><label for="questionnaire_id">' + questionnaire.display_type + ':</label></td>';
